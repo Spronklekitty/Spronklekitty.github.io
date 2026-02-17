@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Studio</title>
+<title>Spronklekitty Games</title>
 
 <style>
 *{
@@ -13,13 +13,17 @@
     font-family: 'Segoe UI', sans-serif;
 }
 
-body{
-    overflow:hidden;
-    background:linear-gradient(135deg,#0a3d91,#1e90ff);
-    color:white;
+html{
+    scroll-behavior:smooth;
 }
 
-/* ===== DIAGONAL STRIPES BACKGROUND ===== */
+body{
+    background:linear-gradient(135deg,#0a3d91,#1e90ff);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ===== Animated Diagonal Stripes ===== */
 
 .stripes{
     position:fixed;
@@ -30,12 +34,12 @@ body{
     background:
     repeating-linear-gradient(
         45deg,
-        rgba(255,255,255,0.07) 0px,
-        rgba(255,255,255,0.07) 40px,
+        rgba(255,255,255,0.06) 0px,
+        rgba(255,255,255,0.06) 40px,
         transparent 40px,
         transparent 80px
     );
-    animation: moveStripes 20s linear infinite;
+    animation:moveStripes 18s linear infinite;
     z-index:0;
 }
 
@@ -44,60 +48,47 @@ body{
     to{ transform:translate(-400px,-400px); }
 }
 
-/* ===== FLOATING GAME CARDS ===== */
+/* ===== Section Base ===== */
 
-.cards{
-    position:fixed;
-    width:200%;
-    height:200%;
-    top:-50%;
-    left:-50%;
-    transform:rotate(-20deg);
-    display:grid;
-    grid-template-columns:repeat(6,250px);
-    gap:50px;
-    opacity:0.15;
-    animation: scrollCards 35s linear infinite;
-    z-index:1;
-}
-
-@keyframes scrollCards{
-    from{ transform:rotate(-20deg) translate(0,0); }
-    to{ transform:rotate(-20deg) translate(-600px,-600px); }
-}
-
-.card{
-    background:white;
-    color:#0a3d91;
-    border-radius:20px;
-    height:150px;
+section{
+    min-height:100vh;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-weight:bold;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
-}
-
-/* ===== MAIN CONTENT ===== */
-
-.content{
+    padding:100px 10%;
     position:relative;
-    z-index:3;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    backdrop-filter:blur(4px);
+    z-index:2;
 }
 
-.logo{
+.container{
+    max-width:1200px;
+    width:100%;
+    opacity:0;
+    transform:translateX(-80px);
+    transition:all 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.container.right{
+    transform:translateX(80px);
+}
+
+.container.visible{
+    opacity:1;
+    transform:translateX(0);
+}
+
+/* ===== HERO ===== */
+
+.hero{
+    flex-direction:column;
+    text-align:center;
+}
+
+.hero img{
     width:280px;
     max-width:80%;
     margin-bottom:25px;
     animation:float 4s ease-in-out infinite;
-    transition:transform 0.2s ease;
 }
 
 @keyframes float{
@@ -105,17 +96,79 @@ body{
     50%{ transform:translateY(-15px); }
 }
 
-h1{
-    font-size:3rem;
+.hero h1{
+    font-size:4rem;
+    font-weight:800;
 }
 
-p{
-    margin-top:10px;
-    font-size:1.2rem;
+.hero p{
+    margin-top:15px;
+    font-size:1.3rem;
     opacity:0.9;
 }
 
-/* ===== FLOATING BUTTONS ===== */
+/* ===== GAMES SECTION ===== */
+
+.games-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+    margin-top:40px;
+}
+
+.game-card{
+    background:white;
+    color:#0a3d91;
+    padding:30px;
+    border-radius:20px;
+    font-weight:bold;
+    font-size:1.2rem;
+    transition:0.4s;
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
+}
+
+.game-card:hover{
+    transform:translateY(-10px) scale(1.03);
+}
+
+/* ===== CONTACT SECTION ===== */
+
+.contact-box{
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    padding:40px;
+    border-radius:25px;
+    max-width:500px;
+}
+
+.contact-box input,
+.contact-box textarea{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border:none;
+    border-radius:10px;
+    background:white;
+    color:#0a3d91;
+}
+
+.contact-box button{
+    margin-top:15px;
+    padding:12px 20px;
+    border:none;
+    background:white;
+    color:#0a3d91;
+    font-weight:bold;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.contact-box button:hover{
+    transform:scale(1.05);
+}
+
+/* ===== Floating Buttons ===== */
 
 .buttons{
     position:fixed;
@@ -152,85 +205,18 @@ p{
 .panel{
     position:fixed;
     top:0;
-    right:-400px;
-    width:350px;
+    right:-350px;
+    width:300px;
     height:100%;
     background:rgba(255,255,255,0.1);
     backdrop-filter:blur(20px);
     padding:40px;
-    transition:0.5s ease;
+    transition:0.5s;
     z-index:10;
 }
 
 .panel.open{
     right:0;
-}
-
-.panel h2{
-    margin-bottom:20px;
-}
-
-/* ===== CONTACT MODAL ===== */
-
-.modal{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.6);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    opacity:0;
-    pointer-events:none;
-    transition:0.3s;
-    z-index:10;
-}
-
-.modal.open{
-    opacity:1;
-    pointer-events:auto;
-}
-
-.modal-content{
-    background:white;
-    color:#0a3d91;
-    padding:40px;
-    border-radius:20px;
-    width:350px;
-    text-align:center;
-    animation:pop 0.3s ease;
-}
-
-@keyframes pop{
-    from{ transform:scale(0.8); opacity:0;}
-    to{ transform:scale(1); opacity:1;}
-}
-
-.modal-content input,
-.modal-content textarea{
-    width:100%;
-    margin-top:10px;
-    padding:10px;
-    border-radius:10px;
-    border:none;
-    background:#f0f0f0;
-}
-
-.modal-content button{
-    margin-top:15px;
-    padding:10px 20px;
-    border:none;
-    background:#1e90ff;
-    color:white;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-/* smoothness */
-body, .icon-btn, .panel, .modal{
-    transition:all 0.3s ease;
 }
 </style>
 </head>
@@ -238,45 +224,57 @@ body, .icon-btn, .panel, .modal{
 
 <div class="stripes"></div>
 
-<div class="cards">
-    <div class="card">Roblox Game 1</div>
-    <div class="card">Roblox Game 2</div>
-    <div class="card">Roblox Game 3</div>
-    <div class="card">Roblox Game 4</div>
-    <div class="card">Roblox Game 5</div>
-    <div class="card">Roblox Game 6</div>
-    <div class="card">Roblox Game 7</div>
-    <div class="card">Roblox Game 8</div>
-</div>
+<!-- HERO -->
+<section class="hero">
+    <div class="container visible">
+        <img src="Untitled139_20260212061631.png" alt="Logo">
+        <h1>Spronklekitty Games</h1>
+        <p>We build immersive Roblox experiences</p>
+    </div>
+</section>
 
-<div class="content" id="content">
-    <img src="Untitled139_20260212061631.png" class="logo" id="logo">
-    <h1>Your Studio Name</h1>
-    <p>We build immersive Roblox experiences</p>
-</div>
+<!-- GAMES -->
+<section>
+    <div class="container">
+        <h2 style="font-size:3rem;">Our Games</h2>
+        <div class="games-grid">
+            <div class="game-card">Roblox Game 1</div>
+            <div class="game-card">Roblox Game 2</div>
+            <div class="game-card">Roblox Game 3</div>
+            <div class="game-card">Roblox Game 4</div>
+            <div class="game-card">Roblox Game 5</div>
+            <div class="game-card">Roblox Game 6</div>
+        </div>
+    </div>
+</section>
 
+<!-- CONTACT -->
+<section>
+    <div class="container right">
+        <h2 style="font-size:3rem;">Contact Us</h2>
+        <div class="contact-box">
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Your Email">
+            <textarea rows="4" placeholder="Your Message"></textarea>
+            <button>Send Message</button>
+        </div>
+    </div>
+</section>
+
+<!-- FLOATING BUTTONS -->
 <div class="buttons">
     <div class="icon-btn" onclick="togglePanel()">
         <img src="Untitled140_20260208003215.png">
     </div>
-    <div class="icon-btn" onclick="toggleModal()">
+    <div class="icon-btn" onclick="document.querySelector('#contact').scrollIntoView()">
         <img src="Untitled140_20260209131253.png">
     </div>
 </div>
 
+<!-- SETTINGS PANEL -->
 <div class="panel" id="panel">
     <h2>Settings</h2>
     <p>More features coming soon.</p>
-</div>
-
-<div class="modal" id="modal">
-    <div class="modal-content">
-        <h2>Contact Us</h2>
-        <input type="text" placeholder="Your Name">
-        <input type="email" placeholder="Your Email">
-        <textarea rows="4" placeholder="Your Message"></textarea>
-        <button onclick="toggleModal()">Send</button>
-    </div>
 </div>
 
 <script>
@@ -284,20 +282,27 @@ function togglePanel(){
     document.getElementById("panel").classList.toggle("open");
 }
 
-function toggleModal(){
-    document.getElementById("modal").classList.toggle("open");
-}
+/* ===== Scroll Reveal Animation ===== */
 
-/* ===== MOUSE PARALLAX ===== */
+const containers = document.querySelectorAll(".container");
 
-document.addEventListener("mousemove", (e)=>{
-    const x = (window.innerWidth/2 - e.clientX)/40;
-    const y = (window.innerHeight/2 - e.clientY)/40;
-    document.getElementById("logo").style.transform =
-        "translate("+x+"px,"+y+"px)";
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add("visible");
+        }
+    });
+},{
+    threshold:0.2
+});
+
+containers.forEach(c=>{
+    if(!c.classList.contains("visible")){
+        observer.observe(c);
+    }
 });
 </script>
 
 </body>
-        </html>
-        
+    </html>
+    
