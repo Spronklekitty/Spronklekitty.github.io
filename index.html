@@ -1,9 +1,303 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>SpronkleKitty Test Site</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Studio</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    overflow:hidden;
+    background:linear-gradient(135deg,#0a3d91,#1e90ff);
+    color:white;
+}
+
+/* ===== DIAGONAL STRIPES BACKGROUND ===== */
+
+.stripes{
+    position:fixed;
+    width:300%;
+    height:300%;
+    top:-100%;
+    left:-100%;
+    background:
+    repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.07) 0px,
+        rgba(255,255,255,0.07) 40px,
+        transparent 40px,
+        transparent 80px
+    );
+    animation: moveStripes 20s linear infinite;
+    z-index:0;
+}
+
+@keyframes moveStripes{
+    from{ transform:translate(0,0); }
+    to{ transform:translate(-400px,-400px); }
+}
+
+/* ===== FLOATING GAME CARDS ===== */
+
+.cards{
+    position:fixed;
+    width:200%;
+    height:200%;
+    top:-50%;
+    left:-50%;
+    transform:rotate(-20deg);
+    display:grid;
+    grid-template-columns:repeat(6,250px);
+    gap:50px;
+    opacity:0.15;
+    animation: scrollCards 35s linear infinite;
+    z-index:1;
+}
+
+@keyframes scrollCards{
+    from{ transform:rotate(-20deg) translate(0,0); }
+    to{ transform:rotate(-20deg) translate(-600px,-600px); }
+}
+
+.card{
+    background:white;
+    color:#0a3d91;
+    border-radius:20px;
+    height:150px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* ===== MAIN CONTENT ===== */
+
+.content{
+    position:relative;
+    z-index:3;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    backdrop-filter:blur(4px);
+}
+
+.logo{
+    width:280px;
+    max-width:80%;
+    margin-bottom:25px;
+    animation:float 4s ease-in-out infinite;
+    transition:transform 0.2s ease;
+}
+
+@keyframes float{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-15px); }
+}
+
+h1{
+    font-size:3rem;
+}
+
+p{
+    margin-top:10px;
+    font-size:1.2rem;
+    opacity:0.9;
+}
+
+/* ===== FLOATING BUTTONS ===== */
+
+.buttons{
+    position:fixed;
+    bottom:40px;
+    right:40px;
+    display:flex;
+    gap:20px;
+    z-index:5;
+}
+
+.icon-btn{
+    width:65px;
+    height:65px;
+    background:rgba(255,255,255,0.9);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+}
+
+.icon-btn:hover{
+    transform:scale(1.1) rotate(10deg);
+}
+
+.icon-btn img{
+    width:30px;
+}
+
+/* ===== SETTINGS PANEL ===== */
+
+.panel{
+    position:fixed;
+    top:0;
+    right:-400px;
+    width:350px;
+    height:100%;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(20px);
+    padding:40px;
+    transition:0.5s ease;
+    z-index:10;
+}
+
+.panel.open{
+    right:0;
+}
+
+.panel h2{
+    margin-bottom:20px;
+}
+
+/* ===== CONTACT MODAL ===== */
+
+.modal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    pointer-events:none;
+    transition:0.3s;
+    z-index:10;
+}
+
+.modal.open{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.modal-content{
+    background:white;
+    color:#0a3d91;
+    padding:40px;
+    border-radius:20px;
+    width:350px;
+    text-align:center;
+    animation:pop 0.3s ease;
+}
+
+@keyframes pop{
+    from{ transform:scale(0.8); opacity:0;}
+    to{ transform:scale(1); opacity:1;}
+}
+
+.modal-content input,
+.modal-content textarea{
+    width:100%;
+    margin-top:10px;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    background:#f0f0f0;
+}
+
+.modal-content button{
+    margin-top:15px;
+    padding:10px 20px;
+    border:none;
+    background:#1e90ff;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* smoothness */
+body, .icon-btn, .panel, .modal{
+    transition:all 0.3s ease;
+}
+</style>
 </head>
 <body>
-    <h1>SpronkleKitty test site</h1>
+
+<div class="stripes"></div>
+
+<div class="cards">
+    <div class="card">Roblox Game 1</div>
+    <div class="card">Roblox Game 2</div>
+    <div class="card">Roblox Game 3</div>
+    <div class="card">Roblox Game 4</div>
+    <div class="card">Roblox Game 5</div>
+    <div class="card">Roblox Game 6</div>
+    <div class="card">Roblox Game 7</div>
+    <div class="card">Roblox Game 8</div>
+</div>
+
+<div class="content" id="content">
+    <img src="Untitled139_20260212061631.png" class="logo" id="logo">
+    <h1>Your Studio Name</h1>
+    <p>We build immersive Roblox experiences</p>
+</div>
+
+<div class="buttons">
+    <div class="icon-btn" onclick="togglePanel()">
+        <img src="Untitled140_20260208003215.png">
+    </div>
+    <div class="icon-btn" onclick="toggleModal()">
+        <img src="Untitled140_20260209131253.png">
+    </div>
+</div>
+
+<div class="panel" id="panel">
+    <h2>Settings</h2>
+    <p>More features coming soon.</p>
+</div>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <h2>Contact Us</h2>
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea rows="4" placeholder="Your Message"></textarea>
+        <button onclick="toggleModal()">Send</button>
+    </div>
+</div>
+
+<script>
+function togglePanel(){
+    document.getElementById("panel").classList.toggle("open");
+}
+
+function toggleModal(){
+    document.getElementById("modal").classList.toggle("open");
+}
+
+/* ===== MOUSE PARALLAX ===== */
+
+document.addEventListener("mousemove", (e)=>{
+    const x = (window.innerWidth/2 - e.clientX)/40;
+    const y = (window.innerHeight/2 - e.clientY)/40;
+    document.getElementById("logo").style.transform =
+        "translate("+x+"px,"+y+"px)";
+});
+</script>
+
 </body>
-</html>
+        </html>
+        
