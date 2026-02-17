@@ -10,20 +10,16 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-html{
-    scroll-behavior:smooth;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body{
-    background:linear-gradient(135deg,#0a3d91,#1e90ff);
+    background:#1e90ff;
     color:white;
     overflow-x:hidden;
 }
 
-/* ===== Animated Diagonal Stripes ===== */
+/* ===== DIAGONAL STRIPES ===== */
 
 .stripes{
     position:fixed;
@@ -34,189 +30,127 @@ body{
     background:
     repeating-linear-gradient(
         45deg,
-        rgba(255,255,255,0.06) 0px,
-        rgba(255,255,255,0.06) 40px,
-        transparent 40px,
-        transparent 80px
+        rgba(255,255,255,0.08) 0px,
+        rgba(255,255,255,0.08) 50px,
+        transparent 50px,
+        transparent 100px
     );
-    animation:moveStripes 18s linear infinite;
-    z-index:0;
+    animation:moveStripes 25s linear infinite;
+    z-index:-1;
 }
 
 @keyframes moveStripes{
     from{ transform:translate(0,0); }
-    to{ transform:translate(-400px,-400px); }
+    to{ transform:translate(-600px,-600px); }
 }
 
-/* ===== Section Base ===== */
+/* ===== MAIN LAYOUT ===== */
 
-section{
+.wrapper{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:40px 20px;
+}
+
+/* ===== LOGO ===== */
+
+.logo{
+    width:260px;
+    margin-bottom:30px;
+    animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{ transform:translateY(0px); }
+    50%{ transform:translateY(-12px); }
+}
+
+/* ===== TITLE ===== */
+
+h1{
+    font-size:3.5rem;
+    margin-bottom:40px;
+    letter-spacing:2px;
+}
+
+/* ===== NAV LINKS ===== */
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+.nav a{
+    font-size:2rem;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+    transition:0.2s;
+    display:inline-block;
+}
+
+.nav a:hover{
+    transform:rotate(-3deg) scale(1.1);
+    color:#ffffff;
+}
+
+/* ===== SECTIONS ===== */
+
+.section{
     min-height:100vh;
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:100px 10%;
-    position:relative;
-    z-index:2;
-}
-
-.container{
-    max-width:1200px;
-    width:100%;
-    opacity:0;
-    transform:translateX(-80px);
-    transition:all 1s cubic-bezier(.2,.8,.2,1);
-}
-
-.container.right{
-    transform:translateX(80px);
-}
-
-.container.visible{
-    opacity:1;
-    transform:translateX(0);
-}
-
-/* ===== HERO ===== */
-
-.hero{
-    flex-direction:column;
     text-align:center;
+    padding:60px 20px;
 }
 
-.hero img{
-    width:280px;
-    max-width:80%;
-    margin-bottom:25px;
-    animation:float 4s ease-in-out infinite;
-}
+/* ===== GAME LIST ===== */
 
-@keyframes float{
-    0%,100%{ transform:translateY(0); }
-    50%{ transform:translateY(-15px); }
-}
-
-.hero h1{
-    font-size:4rem;
-    font-weight:800;
-}
-
-.hero p{
-    margin-top:15px;
-    font-size:1.3rem;
-    opacity:0.9;
-}
-
-/* ===== GAMES SECTION ===== */
-
-.games-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
-    margin-top:40px;
-}
-
-.game-card{
-    background:white;
-    color:#0a3d91;
-    padding:30px;
-    border-radius:20px;
-    font-weight:bold;
-    font-size:1.2rem;
-    transition:0.4s;
-    box-shadow:0 20px 40px rgba(0,0,0,0.3);
-}
-
-.game-card:hover{
-    transform:translateY(-10px) scale(1.03);
-}
-
-/* ===== CONTACT SECTION ===== */
-
-.contact-box{
-    background:rgba(255,255,255,0.1);
-    backdrop-filter:blur(15px);
-    padding:40px;
-    border-radius:25px;
-    max-width:500px;
-}
-
-.contact-box input,
-.contact-box textarea{
-    width:100%;
-    padding:12px;
-    margin-top:12px;
-    border:none;
-    border-radius:10px;
-    background:white;
-    color:#0a3d91;
-}
-
-.contact-box button{
-    margin-top:15px;
-    padding:12px 20px;
-    border:none;
-    background:white;
-    color:#0a3d91;
-    font-weight:bold;
-    border-radius:10px;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.contact-box button:hover{
-    transform:scale(1.05);
-}
-
-/* ===== Floating Buttons ===== */
-
-.buttons{
-    position:fixed;
-    bottom:40px;
-    right:40px;
+.games{
     display:flex;
+    flex-direction:column;
     gap:20px;
-    z-index:5;
 }
 
-.icon-btn{
-    width:65px;
-    height:65px;
-    background:rgba(255,255,255,0.9);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+.game{
+    font-size:1.8rem;
+    font-weight:bold;
+    transition:0.2s;
+}
+
+.game:hover{
+    transform:rotate(2deg) scale(1.05);
+}
+
+/* ===== CONTACT ===== */
+
+.contact input,
+.contact textarea{
+    width:280px;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    font-size:1rem;
+}
+
+.contact button{
+    margin-top:10px;
+    padding:10px 20px;
+    border:none;
+    background:white;
+    color:#1e90ff;
+    font-weight:bold;
     cursor:pointer;
-    transition:0.3s;
-    box-shadow:0 15px 40px rgba(0,0,0,0.3);
 }
 
-.icon-btn:hover{
-    transform:scale(1.1) rotate(10deg);
-}
-
-.icon-btn img{
-    width:30px;
-}
-
-/* ===== SETTINGS PANEL ===== */
-
-.panel{
-    position:fixed;
-    top:0;
-    right:-350px;
-    width:300px;
-    height:100%;
-    background:rgba(255,255,255,0.1);
-    backdrop-filter:blur(20px);
-    padding:40px;
-    transition:0.5s;
-    z-index:10;
-}
-
-.panel.open{
-    right:0;
+.contact button:hover{
+    transform:scale(1.05);
 }
 </style>
 </head>
@@ -224,85 +158,52 @@ section{
 
 <div class="stripes"></div>
 
-<!-- HERO -->
-<section class="hero">
-    <div class="container visible">
-        <img src="Untitled139_20260212061631.png" alt="Logo">
-        <h1>Spronklekitty Games</h1>
-        <p>We build immersive Roblox experiences</p>
+<!-- HOME -->
+<div class="wrapper" id="home">
+    <img src="Untitled139_20260212061631.png" class="logo">
+    <h1>Spronklekitty Games</h1>
+
+    <div class="nav">
+        <a href="#games">Games</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
     </div>
-</section>
+</div>
 
 <!-- GAMES -->
-<section>
-    <div class="container">
-        <h2 style="font-size:3rem;">Our Games</h2>
-        <div class="games-grid">
-            <div class="game-card">Roblox Game 1</div>
-            <div class="game-card">Roblox Game 2</div>
-            <div class="game-card">Roblox Game 3</div>
-            <div class="game-card">Roblox Game 4</div>
-            <div class="game-card">Roblox Game 5</div>
-            <div class="game-card">Roblox Game 6</div>
+<div class="section" id="games">
+    <div>
+        <h1>Our Games</h1>
+        <div class="games">
+            <div class="game">Roblox Game 1</div>
+            <div class="game">Roblox Game 2</div>
+            <div class="game">Roblox Game 3</div>
+            <div class="game">Roblox Game 4</div>
         </div>
     </div>
-</section>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="about">
+    <div>
+        <h1>About Us</h1>
+        <p style="max-width:500px;margin-top:20px;font-size:1.2rem;">
+            We make fun and chaotic Roblox experiences.
+            Spronklekitty Games is all about creativity and fun.
+        </p>
+    </div>
+</div>
 
 <!-- CONTACT -->
-<section>
-    <div class="container right">
-        <h2 style="font-size:3rem;">Contact Us</h2>
-        <div class="contact-box">
-            <input type="text" placeholder="Your Name">
-            <input type="email" placeholder="Your Email">
-            <textarea rows="4" placeholder="Your Message"></textarea>
-            <button>Send Message</button>
-        </div>
-    </div>
-</section>
-
-<!-- FLOATING BUTTONS -->
-<div class="buttons">
-    <div class="icon-btn" onclick="togglePanel()">
-        <img src="Untitled140_20260208003215.png">
-    </div>
-    <div class="icon-btn" onclick="document.querySelector('#contact').scrollIntoView()">
-        <img src="Untitled140_20260209131253.png">
+<div class="section contact" id="contact">
+    <div>
+        <h1>Contact</h1>
+        <input type="text" placeholder="Your Name"><br>
+        <input type="email" placeholder="Your Email"><br>
+        <textarea rows="4" placeholder="Your Message"></textarea><br>
+        <button>Send</button>
     </div>
 </div>
-
-<!-- SETTINGS PANEL -->
-<div class="panel" id="panel">
-    <h2>Settings</h2>
-    <p>More features coming soon.</p>
-</div>
-
-<script>
-function togglePanel(){
-    document.getElementById("panel").classList.toggle("open");
-}
-
-/* ===== Scroll Reveal Animation ===== */
-
-const containers = document.querySelectorAll(".container");
-
-const observer = new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-        if(entry.isIntersecting){
-            entry.target.classList.add("visible");
-        }
-    });
-},{
-    threshold:0.2
-});
-
-containers.forEach(c=>{
-    if(!c.classList.contains("visible")){
-        observer.observe(c);
-    }
-});
-</script>
 
 </body>
-    </html>
-    
+</html>
