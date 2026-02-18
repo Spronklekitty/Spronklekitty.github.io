@@ -5,210 +5,281 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spronklekitty Games</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Federo&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 
 <style>
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family:'Fredoka One', cursive;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    font-family:'Federo', cursive;
-    background:#0a2c73;
+    background:#1e90ff;
     color:white;
     overflow-x:hidden;
-    min-height:100vh;
 }
 
-/* =========================
-   DIAGONAL STRIPES BACKGROUND
-========================= */
+/* ===== DIAGONAL STRIPES ===== */
 
-body::before{
-    content:"";
+.stripes{
     position:fixed;
-    top:-200%;
-    left:-200%;
-    width:400%;
-    height:400%;
-    background:repeating-linear-gradient(
+    width:300%;
+    height:300%;
+    top:-100%;
+    left:-100%;
+    background:
+    repeating-linear-gradient(
         45deg,
         rgba(255,255,255,0.08) 0px,
-        rgba(255,255,255,0.08) 40px,
-        transparent 40px,
-        transparent 80px
+        rgba(255,255,255,0.08) 60px,
+        transparent 60px,
+        transparent 120px
     );
-    animation:scrollStripes 20s linear infinite;
+    animation:moveStripes 30s linear infinite;
     z-index:-1;
 }
 
-@keyframes scrollStripes{
-    from{
-        transform:translate(0,0);
-    }
-    to{
-        transform:translate(400px,400px);
-    }
+@keyframes moveStripes{
+    from{ transform:translate(0,0); }
+    to{ transform:translate(-800px,-800px); }
 }
 
-/* =========================
-   GAME SECTION
-========================= */
+/* ===== TOP ICONS ===== */
+
+.top-icons{
+    position:fixed;
+    top:20px;
+    right:30px;
+    display:flex;
+    gap:20px;
+    z-index:20;
+}
+
+.top-icons img{
+    width:35px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.top-icons img:hover{
+    transform:rotate(10deg) scale(1.1);
+}
+
+/* ===== TOP DROPDOWN ===== */
+
+.top-menu{
+    position:fixed;
+    top:-200px;
+    left:0;
+    width:100%;
+    background:white;
+    color:#1e90ff;
+    padding:40px;
+    text-align:center;
+    transition:0.4s;
+    z-index:19;
+}
+
+.top-menu.open{
+    top:0;
+}
+
+/* ===== HERO ===== */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:40px 20px;
+}
+
+.logo{
+    width:260px;
+    margin-bottom:20px;
+    animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-10px); }
+}
+
+h1{
+    font-size:clamp(2.5rem,6vw,4rem);
+}
+
+/* ===== GAMES ===== */
+
+.section{
+    padding:60px 20px;
+}
 
 .game{
-    width:90%;
-    max-width:1000px;
-    margin:80px auto;
+    margin-bottom:80px;
 }
 
 .banner{
     position:relative;
-    height:260px;
-    background:url("https://picsum.photos/1200/400?blur=2") center/cover;
+    width:100%;
+    height:250px;
+    background:white;
     overflow:hidden;
 }
 
 .banner::after{
-    content:"";
+    content:'';
     position:absolute;
     bottom:0;
     left:0;
     width:100%;
-    height:70%;
-    background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    height:100%;
+    background:linear-gradient(to top, rgba(30,144,255,0.8), transparent);
 }
 
-.play-btn{
+.play-button{
     position:absolute;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    background:#2f6fff;
-    border:none;
-    width:100px;
-    height:100px;
-    border-radius:50%;
+    background:#1e90ff;
     color:white;
-    font-size:32px;
+    padding:15px 35px;
+    border:none;
+    font-size:1.2rem;
     cursor:pointer;
+    border-radius:50px;
+    transition:0.2s;
     z-index:2;
-    transition:transform .25s ease;
 }
 
-.play-btn:hover{
-    transform:translate(-50%,-50%) scale(1.15);
+.play-button:hover{
+    transform:translate(-50%,-50%) scale(1.1);
 }
 
-.title{
-    font-size:36px;
-    margin-top:20px;
+.game-title{
+    margin-top:25px;
+    font-size:2rem;
+    text-align:center;
 }
 
 .spacer{
-    margin:12px 0;
-    font-size:15px;
-    opacity:.85;
-    line-height:1.6;
+    margin:20px auto;
+    text-align:center;
+    font-size:1rem;
+    max-width:600px;
 }
 
-/* =========================
-   FULLSCREEN FRAME
-========================= */
+/* ===== IRIS EFFECT ===== */
 
-.game-frame{
+.iris-overlay{
     position:fixed;
     top:0;
     left:0;
     width:100%;
     height:100%;
     background:black;
-    display:none;
-    z-index:10;
-}
-
-.game-frame iframe{
-    width:100%;
-    height:100%;
-    border:none;
-}
-
-/* =========================
-   IRIS EFFECT
-========================= */
-
-.iris{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    clip-path:circle(150% at 50% 50%);
+    transition:clip-path 0.8s ease-in-out;
+    z-index:1000;
     pointer-events:none;
-    z-index:20;
-    background:radial-gradient(circle at center,
-        transparent 150%,
-        black 151%);
-    transition:background 1s ease-in-out;
-    display:none;
+}
+
+/* ===== MOBILE ===== */
+
+@media (max-width:600px){
+    .banner{
+        height:180px;
+    }
+    .play-button{
+        padding:12px 25px;
+        font-size:1rem;
+    }
 }
 </style>
 </head>
+
 <body>
 
-<div class="game">
-    <div class="banner">
-        <button class="play-btn" onclick="launchGame()">▶</button>
-    </div>
-    <div class="title">Placeholder1</div>
-    <div class="spacer">
-        =================================<br>
-        Lorem Ipsum -- game description goes here<br>
-        =================================
-    </div>
+<div class="stripes"></div>
+
+<!-- IRIS -->
+<div class="iris-overlay" id="iris"></div>
+
+<!-- TOP ICONS -->
+<div class="top-icons">
+    <img src="Untitled140_20260208003215.png" onclick="toggleMenu()">
+    <img src="Untitled140_20260209131253.png" onclick="toggleMenu()">
 </div>
 
-<!-- FULLSCREEN GITHUB FRAME -->
-<div class="game-frame" id="gameFrame">
-    <iframe id="siteFrame"></iframe>
+<!-- TOP MENU -->
+<div class="top-menu" id="topMenu">
+    <h2>Menu</h2>
+    <p>Settings and Contact options coming soon.</p>
 </div>
 
-<!-- IRIS OVERLAY -->
-<div class="iris" id="iris"></div>
+<!-- HERO -->
+<div class="hero">
+    <img src="Untitled139_20260212061631.png" class="logo">
+    <h1>Spronklekitty Games</h1>
+</div>
+
+<!-- GAMES -->
+<div class="section">
+
+    <div class="game">
+        <div class="banner">
+            <button class="play-button" onclick="launchGame()">PLAY</button>
+        </div>
+        <div class="game-title">Placeholder1</div>
+        <div class="spacer">
+            =================================<br>
+            Lorem Ipsum -- game description goes here<br>
+            =================================
+        </div>
+    </div>
+
+    <div class="game">
+        <div class="banner">
+            <button class="play-button" onclick="launchGame()">PLAY</button>
+        </div>
+        <div class="game-title">Placeholder2</div>
+        <div class="spacer">
+            =================================<br>
+            Lorem Ipsum -- game description goes here<br>
+            =================================
+        </div>
+    </div>
+
+</div>
 
 <script>
+function toggleMenu(){
+    document.getElementById("topMenu").classList.toggle("open");
+}
+
 function launchGame(){
 
     const iris = document.getElementById("iris");
-    const frame = document.getElementById("gameFrame");
-    const site = document.getElementById("siteFrame");
 
+    // Show iris
     iris.style.display = "block";
 
-    // Close iris
+    // Close inward (circle shrinks)
+    iris.style.clipPath = "circle(0% at 50% 50%)";
+
+    // After animation, redirect to GitHub
     setTimeout(()=>{
-        iris.style.background =
-            "radial-gradient(circle at center, transparent 0%, black 1%)";
-    },10);
-
-    // When fully black
-    setTimeout(()=>{
-
-        frame.style.display = "block";
-        site.src = "https://github.com/Axolotleless";
-
-        // Open iris again
-        setTimeout(()=>{
-            iris.style.background =
-                "radial-gradient(circle at center, transparent 150%, black 151%)";
-
-            setTimeout(()=>{
-                iris.style.display = "none";
-            },1000);
-
-        },100);
-
-    },1000);
+        window.location.href = "https://github.com/Axolotleless";
+    },800);
 }
 </script>
 
