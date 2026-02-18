@@ -5,12 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spronklekitty Games</title>
 
+<!-- Federoka One Font -->
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+
 <style>
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:'Fredoka One', cursive;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
@@ -31,126 +38,190 @@ body{
     repeating-linear-gradient(
         45deg,
         rgba(255,255,255,0.08) 0px,
-        rgba(255,255,255,0.08) 50px,
-        transparent 50px,
-        transparent 100px
+        rgba(255,255,255,0.08) 60px,
+        transparent 60px,
+        transparent 120px
     );
-    animation:moveStripes 25s linear infinite;
+    animation:moveStripes 30s linear infinite;
     z-index:-1;
 }
 
 @keyframes moveStripes{
     from{ transform:translate(0,0); }
-    to{ transform:translate(-600px,-600px); }
+    to{ transform:translate(-800px,-800px); }
 }
 
-/* ===== MAIN LAYOUT ===== */
+/* ===== HERO ===== */
 
-.wrapper{
+.hero{
     min-height:100vh;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
     text-align:center;
-    padding:40px 20px;
+    padding:40px;
 }
-
-/* ===== LOGO ===== */
 
 .logo{
     width:260px;
-    margin-bottom:30px;
-    animation:float 5s ease-in-out infinite;
+    margin-bottom:20px;
+    animation:float 4s ease-in-out infinite;
 }
 
 @keyframes float{
-    0%,100%{ transform:translateY(0px); }
-    50%{ transform:translateY(-12px); }
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-10px); }
 }
 
-/* ===== TITLE ===== */
-
 h1{
-    font-size:3.5rem;
-    margin-bottom:40px;
+    font-size:4rem;
     letter-spacing:2px;
 }
 
-/* ===== NAV LINKS ===== */
-
 .nav{
-    display:flex;
-    flex-direction:column;
-    gap:25px;
-}
-
-.nav a{
-    font-size:2rem;
-    text-decoration:none;
-    color:white;
-    font-weight:bold;
-    transition:0.2s;
-    display:inline-block;
-}
-
-.nav a:hover{
-    transform:rotate(-3deg) scale(1.1);
-    color:#ffffff;
-}
-
-/* ===== SECTIONS ===== */
-
-.section{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:60px 20px;
-}
-
-/* ===== GAME LIST ===== */
-
-.games{
+    margin-top:40px;
     display:flex;
     flex-direction:column;
     gap:20px;
 }
 
-.game{
-    font-size:1.8rem;
-    font-weight:bold;
+.nav a{
+    font-size:2.5rem;
+    text-decoration:none;
+    color:white;
     transition:0.2s;
 }
 
-.game:hover{
-    transform:rotate(2deg) scale(1.05);
+.nav a:hover{
+    transform:translateX(10px);
 }
 
-/* ===== CONTACT ===== */
+/* ===== GAMES SECTION ===== */
 
-.contact input,
-.contact textarea{
-    width:280px;
-    padding:10px;
-    margin-top:10px;
-    border:none;
-    font-size:1rem;
+.section{
+    min-height:100vh;
+    padding:100px 10%;
 }
 
-.contact button{
-    margin-top:10px;
-    padding:10px 20px;
-    border:none;
+.section h2{
+    font-size:3rem;
+    margin-bottom:40px;
+}
+
+.game-banner{
     background:white;
     color:#1e90ff;
-    font-weight:bold;
+    padding:30px;
+    margin-bottom:30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border:4px solid #ffffff;
+}
+
+.game-title{
+    font-size:2rem;
+}
+
+.play-btn{
+    background:#1e90ff;
+    color:white;
+    padding:15px 30px;
+    border:none;
+    cursor:pointer;
+    font-size:1.2rem;
+    border-radius:40px; /* only rounded thing */
+    transition:0.2s;
+}
+
+.play-btn:hover{
+    transform:scale(1.1);
+}
+
+/* ===== CONTACT MODAL ===== */
+
+.modal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal-content{
+    background:white;
+    color:#1e90ff;
+    padding:40px;
+    width:350px;
+}
+
+.modal-content input,
+.modal-content textarea{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:2px solid #1e90ff;
+}
+
+.modal-content button{
+    margin-top:15px;
+    padding:10px 20px;
+    background:#1e90ff;
+    color:white;
+    border:none;
     cursor:pointer;
 }
 
-.contact button:hover{
-    transform:scale(1.05);
+/* ===== SETTINGS PANEL ===== */
+
+.panel{
+    position:fixed;
+    right:-300px;
+    top:0;
+    width:250px;
+    height:100%;
+    background:white;
+    color:#1e90ff;
+    padding:30px;
+    transition:0.4s;
+}
+
+.panel.open{
+    right:0;
+}
+
+/* ===== FLOATING ICONS ===== */
+
+.icons{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    display:flex;
+    gap:20px;
+}
+
+.icon-btn{
+    width:60px;
+    height:60px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.icon-btn:hover{
+    transform:rotate(10deg);
+}
+
+.icon-btn img{
+    width:30px;
 }
 </style>
 </head>
@@ -158,52 +229,78 @@ h1{
 
 <div class="stripes"></div>
 
-<!-- HOME -->
-<div class="wrapper" id="home">
+<!-- HERO -->
+<div class="hero">
     <img src="Untitled139_20260212061631.png" class="logo">
     <h1>Spronklekitty Games</h1>
 
     <div class="nav">
         <a href="#games">Games</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#" onclick="openContact()">Contact</a>
     </div>
 </div>
 
 <!-- GAMES -->
 <div class="section" id="games">
-    <div>
-        <h1>Our Games</h1>
-        <div class="games">
-            <div class="game">Roblox Game 1</div>
-            <div class="game">Roblox Game 2</div>
-            <div class="game">Roblox Game 3</div>
-            <div class="game">Roblox Game 4</div>
-        </div>
+    <h2>Our Games</h2>
+
+    <div class="game-banner">
+        <div class="game-title">Placeholder Game 1</div>
+        <button class="play-btn">PLAY</button>
+    </div>
+
+    <div class="game-banner">
+        <div class="game-title">Placeholder Game 2</div>
+        <button class="play-btn">PLAY</button>
+    </div>
+
+    <div class="game-banner">
+        <div class="game-title">Placeholder Game 3</div>
+        <button class="play-btn">PLAY</button>
+    </div>
+
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal" id="contactModal">
+    <div class="modal-content">
+        <h2>Contact Us</h2>
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea rows="4" placeholder="Your Message"></textarea>
+        <button onclick="closeContact()">Send</button>
     </div>
 </div>
 
-<!-- ABOUT -->
-<div class="section" id="about">
-    <div>
-        <h1>About Us</h1>
-        <p style="max-width:500px;margin-top:20px;font-size:1.2rem;">
-            We make fun and chaotic Roblox experiences.
-            Spronklekitty Games is all about creativity and fun.
-        </p>
+<!-- SETTINGS PANEL -->
+<div class="panel" id="settingsPanel">
+    <h2>Settings</h2>
+    <p>More chaos coming soon.</p>
+</div>
+
+<!-- ICONS -->
+<div class="icons">
+    <div class="icon-btn" onclick="toggleSettings()">
+        <img src="Untitled140_20260208003215.png">
+    </div>
+    <div class="icon-btn" onclick="openContact()">
+        <img src="Untitled140_20260209131253.png">
     </div>
 </div>
 
-<!-- CONTACT -->
-<div class="section contact" id="contact">
-    <div>
-        <h1>Contact</h1>
-        <input type="text" placeholder="Your Name"><br>
-        <input type="email" placeholder="Your Email"><br>
-        <textarea rows="4" placeholder="Your Message"></textarea><br>
-        <button>Send</button>
-    </div>
-</div>
+<script>
+function toggleSettings(){
+    document.getElementById("settingsPanel").classList.toggle("open");
+}
+
+function openContact(){
+    document.getElementById("contactModal").style.display="flex";
+}
+
+function closeContact(){
+    document.getElementById("contactModal").style.display="none";
+}
+</script>
 
 </body>
 </html>
