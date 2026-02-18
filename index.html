@@ -26,7 +26,6 @@ body{
 }
 
 /* ===== DIAGONAL STRIPES ===== */
-
 .stripes{
     position:fixed;
     width:300%;
@@ -44,14 +43,12 @@ body{
     animation:moveStripes 30s linear infinite;
     z-index:-1;
 }
-
 @keyframes moveStripes{
     from{ transform:translate(0,0); }
     to{ transform:translate(-800px,-800px); }
 }
 
 /* ===== TOP ICONS ===== */
-
 .top-icons{
     position:fixed;
     top:20px;
@@ -60,19 +57,16 @@ body{
     gap:20px;
     z-index:20;
 }
-
 .top-icons img{
     width:35px;
     cursor:pointer;
     transition:0.2s;
 }
-
 .top-icons img:hover{
     transform:rotate(10deg) scale(1.1);
 }
 
 /* ===== TOP DROPDOWN ===== */
-
 .top-menu{
     position:fixed;
     top:-200px;
@@ -85,13 +79,11 @@ body{
     transition:0.4s;
     z-index:19;
 }
-
 .top-menu.open{
     top:0;
 }
 
 /* ===== HERO ===== */
-
 .hero{
     min-height:100vh;
     display:flex;
@@ -101,32 +93,26 @@ body{
     text-align:center;
     padding:40px 20px;
 }
-
 .logo{
     width:260px;
     margin-bottom:20px;
     animation:float 4s ease-in-out infinite;
 }
-
 @keyframes float{
     0%,100%{ transform:translateY(0); }
     50%{ transform:translateY(-10px); }
 }
-
 h1{
     font-size:clamp(2.5rem,6vw,4rem);
 }
 
 /* ===== GAMES ===== */
-
 .section{
     padding:60px 20px;
 }
-
 .game{
     margin-bottom:80px;
 }
-
 .banner{
     position:relative;
     width:100%;
@@ -134,7 +120,6 @@ h1{
     background:white;
     overflow:hidden;
 }
-
 .banner::after{
     content:'';
     position:absolute;
@@ -144,7 +129,6 @@ h1{
     height:100%;
     background:linear-gradient(to top, rgba(30,144,255,0.8), transparent);
 }
-
 .play-button{
     position:absolute;
     top:50%;
@@ -160,17 +144,14 @@ h1{
     transition:0.2s;
     z-index:2;
 }
-
 .play-button:hover{
     transform:translate(-50%,-50%) scale(1.1);
 }
-
 .game-title{
     margin-top:25px;
     font-size:2rem;
     text-align:center;
 }
-
 .spacer{
     margin:20px auto;
     text-align:center;
@@ -179,7 +160,6 @@ h1{
 }
 
 /* ===== IRIS EFFECT ===== */
-
 .iris-overlay{
     position:fixed;
     top:0;
@@ -190,11 +170,27 @@ h1{
     clip-path:circle(150% at 50% 50%);
     transition:clip-path 0.8s ease-in-out;
     z-index:1000;
-    pointer-events:none;
+    display:none;
+}
+
+/* ===== FULLSCREEN GITHUB FRAME ===== */
+.game-frame{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:none;
+    z-index:500;
+}
+.game-frame iframe{
+    width:100%;
+    height:100%;
+    border:none;
 }
 
 /* ===== MOBILE ===== */
-
 @media (max-width:600px){
     .banner{
         height:180px;
@@ -213,6 +209,11 @@ h1{
 
 <!-- IRIS -->
 <div class="iris-overlay" id="iris"></div>
+
+<!-- FULLSCREEN GITHUB FRAME -->
+<div class="game-frame" id="gameFrame">
+    <iframe id="githubFrame" src=""></iframe>
+</div>
 
 <!-- TOP ICONS -->
 <div class="top-icons">
@@ -269,16 +270,27 @@ function toggleMenu(){
 function launchGame(){
 
     const iris = document.getElementById("iris");
+    const frame = document.getElementById("gameFrame");
+    const github = document.getElementById("githubFrame");
 
     // Show iris
     iris.style.display = "block";
 
-    // Close inward (circle shrinks)
+    // Step 1: Shrink iris
     iris.style.clipPath = "circle(0% at 50% 50%)";
 
-    // After animation, redirect to GitHub
     setTimeout(()=>{
-        window.location.href = "https://github.com/Axolotleless";
+        // Load GitHub page in iframe
+        github.src = "https://github.com/Axolotleless";
+        frame.style.display = "block";
+
+        // Step 2: Expand iris to reveal GitHub
+        iris.style.clipPath = "circle(150% at 50% 50%)";
+
+        setTimeout(()=>{
+            iris.style.display = "none";
+        },800);
+
     },800);
 }
 </script>
