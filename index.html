@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spronklekitty Games</title>
 
-<!-- Federoka One Font -->
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 
 <style>
@@ -26,7 +25,7 @@ body{
     overflow-x:hidden;
 }
 
-/* ===== DIAGONAL STRIPES ===== */
+/* ===== Diagonal Stripes ===== */
 
 .stripes{
     position:fixed;
@@ -51,7 +50,47 @@ body{
     to{ transform:translate(-800px,-800px); }
 }
 
-/* ===== HERO ===== */
+/* ===== Top Icons ===== */
+
+.top-icons{
+    position:fixed;
+    top:20px;
+    right:30px;
+    display:flex;
+    gap:20px;
+    z-index:10;
+}
+
+.top-icons img{
+    width:35px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.top-icons img:hover{
+    transform:rotate(10deg) scale(1.1);
+}
+
+/* ===== Top Dropdown Menu ===== */
+
+.top-menu{
+    position:fixed;
+    top:-200px;
+    left:0;
+    width:100%;
+    background:white;
+    color:#1e90ff;
+    padding:40px;
+    text-align:center;
+    transition:0.4s;
+    z-index:9;
+}
+
+.top-menu.open{
+    top:0;
+}
+
+/* ===== Hero ===== */
 
 .hero{
     min-height:100vh;
@@ -60,7 +99,7 @@ body{
     align-items:center;
     justify-content:center;
     text-align:center;
-    padding:40px;
+    padding:40px 20px;
 }
 
 .logo{
@@ -75,153 +114,80 @@ body{
 }
 
 h1{
-    font-size:4rem;
-    letter-spacing:2px;
+    font-size:clamp(2.5rem,6vw,4rem);
 }
 
-.nav{
-    margin-top:40px;
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-}
-
-.nav a{
-    font-size:2.5rem;
-    text-decoration:none;
-    color:white;
-    transition:0.2s;
-}
-
-.nav a:hover{
-    transform:translateX(10px);
-}
-
-/* ===== GAMES SECTION ===== */
+/* ===== Games Section ===== */
 
 .section{
-    min-height:100vh;
-    padding:100px 10%;
+    padding:60px 20px;
 }
 
-.section h2{
-    font-size:3rem;
-    margin-bottom:40px;
+.game{
+    margin-bottom:80px;
 }
 
-.game-banner{
-    background:white;
-    color:#1e90ff;
-    padding:30px;
-    margin-bottom:30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border:4px solid #ffffff;
+.banner{
+    position:relative;
+    width:100%;
+    height:250px;
+    background:#ffffff;
+    overflow:hidden;
 }
 
-.game-title{
-    font-size:2rem;
-}
-
-.play-btn{
-    background:#1e90ff;
-    color:white;
-    padding:15px 30px;
-    border:none;
-    cursor:pointer;
-    font-size:1.2rem;
-    border-radius:40px; /* only rounded thing */
-    transition:0.2s;
-}
-
-.play-btn:hover{
-    transform:scale(1.1);
-}
-
-/* ===== CONTACT MODAL ===== */
-
-.modal{
-    position:fixed;
-    top:0;
+.banner::after{
+    content:'';
+    position:absolute;
+    bottom:0;
     left:0;
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.6);
-    display:none;
-    align-items:center;
-    justify-content:center;
+    background:linear-gradient(to top, rgba(30,144,255,0.8), transparent);
 }
 
-.modal-content{
-    background:white;
-    color:#1e90ff;
-    padding:40px;
-    width:350px;
-}
-
-.modal-content input,
-.modal-content textarea{
-    width:100%;
-    padding:10px;
-    margin-top:10px;
-    border:2px solid #1e90ff;
-}
-
-.modal-content button{
-    margin-top:15px;
-    padding:10px 20px;
+.play-button{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
     background:#1e90ff;
     color:white;
+    padding:15px 35px;
     border:none;
+    font-size:1.2rem;
     cursor:pointer;
-}
-
-/* ===== SETTINGS PANEL ===== */
-
-.panel{
-    position:fixed;
-    right:-300px;
-    top:0;
-    width:250px;
-    height:100%;
-    background:white;
-    color:#1e90ff;
-    padding:30px;
-    transition:0.4s;
-}
-
-.panel.open{
-    right:0;
-}
-
-/* ===== FLOATING ICONS ===== */
-
-.icons{
-    position:fixed;
-    bottom:30px;
-    right:30px;
-    display:flex;
-    gap:20px;
-}
-
-.icon-btn{
-    width:60px;
-    height:60px;
-    background:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
+    border-radius:50px;
     transition:0.2s;
+    z-index:2;
 }
 
-.icon-btn:hover{
-    transform:rotate(10deg);
+.play-button:hover{
+    transform:translate(-50%,-50%) scale(1.1);
 }
 
-.icon-btn img{
-    width:30px;
+.game-title{
+    margin-top:25px;
+    font-size:2rem;
+    text-align:center;
+}
+
+.spacer{
+    margin:20px auto;
+    text-align:center;
+    font-size:1rem;
+    max-width:600px;
+}
+
+/* ===== Mobile Adjustments ===== */
+
+@media (max-width:600px){
+    .banner{
+        height:180px;
+    }
+    .play-button{
+        padding:12px 25px;
+        font-size:1rem;
+    }
 }
 </style>
 </head>
@@ -229,76 +195,68 @@ h1{
 
 <div class="stripes"></div>
 
-<!-- HERO -->
+<!-- Top Icons -->
+<div class="top-icons">
+    <img src="Untitled140_20260208003215.png" onclick="toggleMenu()">
+    <img src="Untitled140_20260209131253.png" onclick="toggleMenu()">
+</div>
+
+<!-- Top Dropdown -->
+<div class="top-menu" id="topMenu">
+    <h2>Menu</h2>
+    <p>Settings and Contact options coming soon.</p>
+</div>
+
+<!-- Hero -->
 <div class="hero">
     <img src="Untitled139_20260212061631.png" class="logo">
     <h1>Spronklekitty Games</h1>
-
-    <div class="nav">
-        <a href="#games">Games</a>
-        <a href="#" onclick="openContact()">Contact</a>
-    </div>
 </div>
 
-<!-- GAMES -->
-<div class="section" id="games">
-    <h2>Our Games</h2>
+<!-- Games -->
+<div class="section">
 
-    <div class="game-banner">
-        <div class="game-title">Placeholder Game 1</div>
-        <button class="play-btn">PLAY</button>
+    <div class="game">
+        <div class="banner">
+            <button class="play-button">PLAY</button>
+        </div>
+        <div class="game-title">Placeholder1</div>
+        <div class="spacer">
+            =================================<br>
+            Lorem Ipsum -- game description goes here<br>
+            =================================
+        </div>
     </div>
 
-    <div class="game-banner">
-        <div class="game-title">Placeholder Game 2</div>
-        <button class="play-btn">PLAY</button>
+    <div class="game">
+        <div class="banner">
+            <button class="play-button">PLAY</button>
+        </div>
+        <div class="game-title">Placeholder2</div>
+        <div class="spacer">
+            =================================<br>
+            Lorem Ipsum -- game description goes here<br>
+            =================================
+        </div>
     </div>
 
-    <div class="game-banner">
-        <div class="game-title">Placeholder Game 3</div>
-        <button class="play-btn">PLAY</button>
+    <div class="game">
+        <div class="banner">
+            <button class="play-button">PLAY</button>
+        </div>
+        <div class="game-title">Placeholder3</div>
+        <div class="spacer">
+            =================================<br>
+            Lorem Ipsum -- game description goes here<br>
+            =================================
+        </div>
     </div>
 
-</div>
-
-<!-- CONTACT MODAL -->
-<div class="modal" id="contactModal">
-    <div class="modal-content">
-        <h2>Contact Us</h2>
-        <input type="text" placeholder="Your Name">
-        <input type="email" placeholder="Your Email">
-        <textarea rows="4" placeholder="Your Message"></textarea>
-        <button onclick="closeContact()">Send</button>
-    </div>
-</div>
-
-<!-- SETTINGS PANEL -->
-<div class="panel" id="settingsPanel">
-    <h2>Settings</h2>
-    <p>More chaos coming soon.</p>
-</div>
-
-<!-- ICONS -->
-<div class="icons">
-    <div class="icon-btn" onclick="toggleSettings()">
-        <img src="Untitled140_20260208003215.png">
-    </div>
-    <div class="icon-btn" onclick="openContact()">
-        <img src="Untitled140_20260209131253.png">
-    </div>
 </div>
 
 <script>
-function toggleSettings(){
-    document.getElementById("settingsPanel").classList.toggle("open");
-}
-
-function openContact(){
-    document.getElementById("contactModal").style.display="flex";
-}
-
-function closeContact(){
-    document.getElementById("contactModal").style.display="none";
+function toggleMenu(){
+    document.getElementById("topMenu").classList.toggle("open");
 }
 </script>
 
