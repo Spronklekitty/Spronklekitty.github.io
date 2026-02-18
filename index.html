@@ -25,7 +25,7 @@ body{
     overflow-x:hidden;
 }
 
-/* ===== Diagonal Stripes ===== */
+/* ===== DIAGONAL STRIPES ===== */
 
 .stripes{
     position:fixed;
@@ -50,7 +50,7 @@ body{
     to{ transform:translate(-800px,-800px); }
 }
 
-/* ===== Top Icons ===== */
+/* ===== TOP ICONS ===== */
 
 .top-icons{
     position:fixed;
@@ -58,7 +58,7 @@ body{
     right:30px;
     display:flex;
     gap:20px;
-    z-index:10;
+    z-index:20;
 }
 
 .top-icons img{
@@ -71,7 +71,7 @@ body{
     transform:rotate(10deg) scale(1.1);
 }
 
-/* ===== Top Dropdown Menu ===== */
+/* ===== TOP DROPDOWN ===== */
 
 .top-menu{
     position:fixed;
@@ -83,14 +83,14 @@ body{
     padding:40px;
     text-align:center;
     transition:0.4s;
-    z-index:9;
+    z-index:19;
 }
 
 .top-menu.open{
     top:0;
 }
 
-/* ===== Hero ===== */
+/* ===== HERO ===== */
 
 .hero{
     min-height:100vh;
@@ -117,7 +117,7 @@ h1{
     font-size:clamp(2.5rem,6vw,4rem);
 }
 
-/* ===== Games Section ===== */
+/* ===== GAMES ===== */
 
 .section{
     padding:60px 20px;
@@ -131,7 +131,7 @@ h1{
     position:relative;
     width:100%;
     height:250px;
-    background:#ffffff;
+    background:white;
     overflow:hidden;
 }
 
@@ -178,7 +178,41 @@ h1{
     max-width:600px;
 }
 
-/* ===== Mobile Adjustments ===== */
+/* ===== IRIS EFFECT ===== */
+
+.iris-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    clip-path:circle(150% at 50% 50%);
+    transition:clip-path 0.8s ease-in-out;
+    z-index:1000;
+    display:none;
+}
+
+/* ===== FULLSCREEN GAME FRAME ===== */
+
+.game-frame{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:none;
+    z-index:500;
+}
+
+.game-frame iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+/* ===== MOBILE ===== */
 
 @media (max-width:600px){
     .banner{
@@ -191,34 +225,43 @@ h1{
 }
 </style>
 </head>
+
 <body>
 
 <div class="stripes"></div>
 
-<!-- Top Icons -->
+<!-- IRIS -->
+<div class="iris-overlay" id="iris"></div>
+
+<!-- FULLSCREEN ROBLOX FRAME -->
+<div class="game-frame" id="gameFrame">
+    <iframe id="robloxFrame" src=""></iframe>
+</div>
+
+<!-- TOP ICONS -->
 <div class="top-icons">
     <img src="Untitled140_20260208003215.png" onclick="toggleMenu()">
     <img src="Untitled140_20260209131253.png" onclick="toggleMenu()">
 </div>
 
-<!-- Top Dropdown -->
+<!-- TOP MENU -->
 <div class="top-menu" id="topMenu">
     <h2>Menu</h2>
     <p>Settings and Contact options coming soon.</p>
 </div>
 
-<!-- Hero -->
+<!-- HERO -->
 <div class="hero">
     <img src="Untitled139_20260212061631.png" class="logo">
     <h1>Spronklekitty Games</h1>
 </div>
 
-<!-- Games -->
+<!-- GAMES -->
 <div class="section">
 
     <div class="game">
         <div class="banner">
-            <button class="play-button">PLAY</button>
+            <button class="play-button" onclick="launchGame()">PLAY</button>
         </div>
         <div class="game-title">Placeholder1</div>
         <div class="spacer">
@@ -230,21 +273,9 @@ h1{
 
     <div class="game">
         <div class="banner">
-            <button class="play-button">PLAY</button>
+            <button class="play-button" onclick="launchGame()">PLAY</button>
         </div>
         <div class="game-title">Placeholder2</div>
-        <div class="spacer">
-            =================================<br>
-            Lorem Ipsum -- game description goes here<br>
-            =================================
-        </div>
-    </div>
-
-    <div class="game">
-        <div class="banner">
-            <button class="play-button">PLAY</button>
-        </div>
-        <div class="game-title">Placeholder3</div>
         <div class="spacer">
             =================================<br>
             Lorem Ipsum -- game description goes here<br>
@@ -257,6 +288,34 @@ h1{
 <script>
 function toggleMenu(){
     document.getElementById("topMenu").classList.toggle("open");
+}
+
+function launchGame(){
+
+    const iris = document.getElementById("iris");
+    const frame = document.getElementById("gameFrame");
+    const roblox = document.getElementById("robloxFrame");
+
+    iris.style.display = "block";
+
+    // Close iris
+    iris.style.clipPath = "circle(0% at 50% 50%)";
+
+    setTimeout(()=>{
+
+        // Attempt to embed Roblox
+        roblox.src = "https://www.roblox.com/games/95963476979579/Map-showcase-FINAL42";
+
+        frame.style.display = "block";
+
+        // Open iris
+        iris.style.clipPath = "circle(150% at 50% 50%)";
+
+        setTimeout(()=>{
+            iris.style.display = "none";
+        },800);
+
+    },800);
 }
 </script>
 
