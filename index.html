@@ -159,18 +159,19 @@ h1{
     max-width:600px;
 }
 
-/* ===== IRIS EFFECT ===== */
-.iris-overlay{
+/* ===== IMAGE IRIS ===== */
+.iris-image {
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:black;
-    clip-path:circle(150% at 50% 50%);
-    transition:clip-path 0.8s ease-in-out;
+    top:50%;
+    left:50%;
+    width:300px; /* initial size of transparent image */
+    height:300px;
+    border-radius:50%;
+    border:1000px solid black; /* HUGE black border to cover screen */
+    transform:translate(-50%,-50%);
     z-index:1000;
-    display:none;
+    pointer-events:none;
+    transition: width 0.8s ease-in-out, height 0.8s ease-in-out;
 }
 
 /* ===== FULLSCREEN GITHUB FRAME ===== */
@@ -207,8 +208,9 @@ h1{
 
 <div class="stripes"></div>
 
-<!-- IRIS -->
-<div class="iris-overlay" id="iris"></div>
+<!-- IMAGE IRIS -->
+<img src="https://raw.githubusercontent.com/Axolotleless/your-repo/main/test.png" 
+     class="iris-image" id="irisImage">
 
 <!-- FULLSCREEN GITHUB FRAME -->
 <div class="game-frame" id="gameFrame">
@@ -268,24 +270,22 @@ function toggleMenu(){
 }
 
 function launchGame(){
-
-    const iris = document.getElementById("iris");
+    const iris = document.getElementById("irisImage");
     const frame = document.getElementById("gameFrame");
     const github = document.getElementById("githubFrame");
 
-    // Show iris
-    iris.style.display = "block";
-
     // Step 1: Shrink iris
-    iris.style.clipPath = "circle(0% at 50% 50%)";
+    iris.style.width = '50px';
+    iris.style.height = '50px';
 
     setTimeout(()=>{
-        // Load GitHub page in iframe
+        // Step 2: Load GitHub in iframe
         github.src = "https://github.com/Axolotleless";
         frame.style.display = "block";
 
-        // Step 2: Expand iris to reveal GitHub
-        iris.style.clipPath = "circle(150% at 50% 50%)";
+        // Step 3: Expand iris to reveal GitHub
+        iris.style.width = '300px';
+        iris.style.height = '300px';
 
         setTimeout(()=>{
             iris.style.display = "none";
